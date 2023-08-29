@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Put,
+  Delete,
 } from '@nestjs/common/decorators';
 import { UserRepository } from './user.repository';
 import { CreateUserDTO } from 'src/dto/createUser.dto';
@@ -49,6 +50,16 @@ export class UserController {
     return {
       user: userUpdated,
       message: 'User updated succesfully',
+    };
+  }
+
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: string) {
+    const userDeleted = await this.userRepository.delete(id);
+
+    return {
+      user: userDeleted,
+      message: 'User deleted succesfully',
     };
   }
 }
